@@ -86,7 +86,9 @@ typedef vector<ptrToRouterBase> ptrToRouterBaseVector;
 
 This vector contains the pointer which points to the `RouterBase` like class. So it is fine to add pointers which point to your class which is inherited from the `RouterBase` class. 
 
+Once you have generated a `Simulator`, you can call `Simulator::SetTime()` to set the start time and the end time. If everything is ready, you can just call `Simulator::Run()` to start the simulation. After the simulation finished, you can call `Simulator::Destroy()` to destroy all items.
 
+##### More Details
 
 In this README, I just show some key informations and functions that are important for you to use this program. More details are shown in the source code. If you have some questions, you can try to read codes for help or hand up issues. 
 
@@ -98,3 +100,26 @@ When you inherit a new class,
 
 #### 2.3 Makefile
 
+This program is compiled by **g++-12**. You can change the compiler in `makefile` and the tarfget name of this program.
+
+```makefile
+# compiler
+CC = g++
+LD = g++
+# the name of this target
+target = Router
+# sources and objects and the configuration of build path
+SRC = $(wildcard *.cc)
+OBJ = $(patsubst %.cc, build/%.o, $(SRC))
+BUILD_PATH = $(patsubst ./%, build/%, ./)
+...
+```
+
+### 3 Future Works
+
+Although this program can run, there is a long way to go to implement all my ideas. I will try to implement it in the future. The works includes more than:
+
++ add more operations in SDRS
++ improve the performance of the simulation
++ add log systems to track the information of simulation
++ ...
