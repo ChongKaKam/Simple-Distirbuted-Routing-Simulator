@@ -96,8 +96,6 @@ In this README, I just show some key informations and functions that are importa
 
 The codes are shown in  `myrouter.cc` and `myrouter.h`. This part is where you can inherit `RouterBase` class and realize your ideas.
 
-When you inherit a new class, 
-
 #### 2.3 Makefile
 
 This program is compiled by **g++-12**. You can change the compiler in `makefile` and the tarfget name of this program.
