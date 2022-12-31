@@ -1,32 +1,36 @@
-CC = g++
-LD = g++
+# makefile
+# basic configuration
+target = simulator
+SRC_DIRS = algorithm core main
+INC_DIRS = algorithm core main
+BUILD_DIR = $(addprefix ./build/, $(INC_DIRS))
 
-target = Router
-SRC = $(wildcard *.cc)
-OBJ = $(patsubst %.cc, build/%.o, $(SRC))
-BUILD_PATH = $(patsubst ./%, build/%, ./)
+# Find all the C++ files we want to compile
+SRCS = $(shell find $(SRC_DIRS) -name '*.cc')
+OBJS = $(patsubst %.cc, build/%.o, $(SRCS))
+# -Ixxx
+INC_FLAGS = $(addprefix -I, $(INC_DIRS))
 
 define make-goal
 $(1): $(patsubst build/%.o, ./%.cc, $(1))
-	@$(CC) $(INCLUDES) -c -g $$< -o $$@
+	@$(CXX) $(INC_FLAGS) -c -g $$< -o $$@
 endef
 
-.PHONY: all checkdirs test clean
+# set the phony target
+.PHONY: all checkdirs clean run
 
 all: checkdirs build/$(target)
+
+build/$(target): $(OBJS)
+	@$(CXX) $(OBJS) -o $@
 	
-build/$(target): $(OBJ)
-	@$(LD) $^ -g -o $@
+$(foreach obj, $(OBJS), $(eval $(call make-goal, $(obj))))
 
-$(foreach bdir,$(OBJ),$(eval $(call make-goal,$(bdir))))
-
-checkdirs: $(BUILD_PATH)
-
-$(BUILD_PATH):
-	@mkdir -p $@
+checkdirs:
+	@$(foreach bdir, $(BUILD_DIR), $(shell mkdir -p $(bdir)))
 
 run: all
-	./build/$(target)
+	@./build/$(target)
 
 clean:
-	@rm -rf $(BUILD_PATH)
+	@rm -r ./build

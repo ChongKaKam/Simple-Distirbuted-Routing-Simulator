@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include "core.h"
-#include "myrouter.h"
+#include "../core/core.h"
+#include "../algorithm/myrouter.h"
 
 #define MAXSIZE 6
 

@@ -16,6 +16,7 @@ class MyRouter;
 // Virtual Functions: 
 //  - AddLink(CostType cost, ptrToRouterBase pDst);
 //  - update(Event message)=0;
+//  - init()=0;
 class MyRouter: public RouterBase
 {
     public:
@@ -33,7 +34,7 @@ class MyRouter: public RouterBase
 class Table
 {
     public:
-
+        
     public:    
 
 };

@@ -5,9 +5,11 @@ void MyRouter::AddLink(CostType cost, ptrToRouterBase pDst){
     links.push_back(Link(cost, pDst));
 }
 void MyRouter::init(){
+    
     for(int i=0; i<links.size(); ++i){
         int DstID = links[i].pdst->GetId();
-        pQueue->push(Event(0, id, DstID, NULL));
+        Link* p = &links[i];
+        pQueue->push(Event(0, id, DstID, (void*)p));
     }
 }
 bool MyRouter::update(Event message){
